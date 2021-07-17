@@ -107,7 +107,9 @@ What about n = n+1?
 * There are no equations in imperative languages like C and Java.
     * In Haskell, it is valid to write n = n + 1.
         This is an equation, not an assignment!
-* It means: compute the value of n that has the property that n = n + 1.
+* It means: compute the value of n that has the property that n = n + 1.
+  
+
 * Haskell will try, and it will fail.
 
 ####How can you compute without assignments?
@@ -120,6 +122,9 @@ What about n = n+1?
         * We never destroy old values.
 * We just compute new useful ones.
 * If the old value was truly useless, the garbage collector will reclaim its storage.
+
+> An expression assigned to a literal is an equation (Anything with an = sign is an equation, effectively)
+
 
 ####Try Haskell!
 #####Haskell in your browser
