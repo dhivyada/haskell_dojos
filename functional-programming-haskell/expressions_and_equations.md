@@ -10,6 +10,7 @@ Haskell has no statements, only expressions!
 * Instead, all computation is performed by evaluating expressions
 * So, let’s start with expressions!
     * (We’ll still be working on expressions at the end of the course, since that’s all there is.)
+* The right side of the equation is an expression    
 
 ###Examples of integer expressions
 
@@ -75,7 +76,7 @@ Precedence of function application
 #Equations
 ####Equations give names to values
 
-* Equations are used to give names to values.
+* Equations are used to give names to values/expressions.
 
 ```
 answer = 42
