@@ -3,7 +3,9 @@
 #Lambda functions:
 * These are anonymous functions similar to Javascript
   Blocks
-* These are very important, they are actually the foundation of the language  
+* These are very important, they are actually the foundation of the language 
+* Functions without names are known as lambdas
+
 ####*In Javascript*:
 ```
 f = function(x, y) { 

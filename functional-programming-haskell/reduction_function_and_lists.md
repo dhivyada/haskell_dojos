@@ -69,6 +69,9 @@ This means that
 #Functions
 
 Haskell is a functional language so the function concept is essential to the language. A function takes one or more arguments and computes a result. Given the same arguments, the result will always be the same. This is similar to a mathematical function and it means that in Haskell there are no side-effects. There are two fundamental operations on functions: function definition (creating a function) and function application (using a function to compute a result).
+
+* Functions are the main way to abstract and encapsulate computation in Haskell.
+
 Function definitions
 
     In Haskell, many functions are pre-defined in a standard library called the prelude.
