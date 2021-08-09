@@ -1,13 +1,15 @@
+> Part 1.8
+
 #Reduction, Functions and Lists
 #Reduction
 A model of program execution
 
-    A programmer needs a concrete model for how a program is executed.
-    For imperative programs, we can execute statement by statement, keeping track of the values of variables (the stack) and where we are in the program (the program counter).
-    Functional programs don’t have statements!
-    The mechanism for executing functional programs is reduction.
+* A programmer needs a concrete model for how a program is executed.
+* For imperative programs, we can execute statement by statement, keeping track of the values of variables (the stack) and where we are in the program (the program counter).
+* Functional programs don’t have statements!
+* The mechanism for executing functional programs is reduction.
 
-Reduction
+###Reduction
 
 Reduction is the process of converting an expression to a simpler form. Conceptually, an expression is reduced by simplifying one reducible expression (called “redex”) at a time. Each step is called a reduction, and we’ll use -- > to show the result.
 
@@ -20,7 +22,7 @@ Reduction is the process of converting an expression to a simpler form. Conceptu
 ```
 Reduction is important because it is the sole means of execution of a functional program. There are no statements, as in imperative languages; all computation is achieved purely by reducing expressions.
 
-Unique reduction path
+###Unique reduction path
 
 When a reduction is performed, there is only one possible answer. In this example, the computation has only one possible path:
 ```haskell
@@ -32,9 +34,9 @@ When a reduction is performed, there is only one possible answer. In this exampl
 --  >
 33
 ```
-There is only one possible reduction path in that example```, because in each step the current expression contains only one redex.
+There is only one possible reduction path in that example, because in each step the current expression contains only one redex.
 
-Multiple reduction paths
+###Multiple reduction paths
 
 If an expression contains several redexes, there will be several reduction paths.
 ```haskell
@@ -56,15 +58,15 @@ If an expression contains several redexes, there will be several reduction paths
 ```
 The result doesn’t depend on reduction path!
 
-A fundamental theorem (the Church-Rosser theorem):
+A fundamental theorem (**the Church-Rosser theorem**):
 
 Every terminating reduction path gives the same result
 
 This means that
 
-    Correctness doesn’t depend on order of evaluation.
-    The compiler (or programmer) can change the order freely to improve performance, without affecting the result.
-    Different expressions can be evaluated in parallel, without affecting the result. As a result, functional languages are leading contenders for programming future parallel systems.
+* Correctness doesn’t depend on order of evaluation.
+* The compiler (or programmer) can change the order freely to improve performance, without affecting the result.
+* Different expressions can be evaluated in parallel, without affecting the result. As a result, functional languages are leading contenders for programming future parallel systems.
 
 #Functions
 
@@ -74,13 +76,13 @@ Haskell is a functional language so the function concept is essential to the lan
 
 Function definitions
 
-    In Haskell, many functions are pre-defined in a standard library called the prelude.
-    In due course, we’ll learn how to use many of these standard functions.
+* In Haskell, many functions are pre-defined in a standard library called the prelude.
+* In due course, we’ll learn how to use many of these standard functions.
 
-Defining a function
+####Defining a function
 
-    But the essence of functional programming is defining your own functions to solve your problems!
-    A function is defined by an equation.
+* But the essence of functional programming is defining your own functions to solve your problems!
+* A function is defined by an equation.
 
 ```haskell
 f = \x -> x+1  -- lambda function
@@ -89,25 +91,52 @@ f x = x+1 -- named function
 ```
 This is equivalent to
 
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mi>f</mi>
+<mo stretchy="false">(</mo>
+<mi>x</mi>
+<mo stretchy="false">)</mo>
+<mo>=</mo>
+<mi>x</mi>
+<mo>+</mo>
+<mn>1</mn>
+</math>
+
 in mathematical notation.
 
-    The left hand side of the equation looks like a variable – and that’s what it is
-    The right hand side is an expression that uses the local variables listed in parentheses and defines the result of the expression.
+* The left hand side of the equation looks like a variable – and that’s what it is
+* The right hand side is an expression that uses the local variables listed in parentheses and defines the result of the expression.
 
-Function application
+###Function application
 How function application works
 
-    A function definition is an equation, e.g. 
+* A function definition is an equation, e.g.
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow data-mjx-texclass="ORD">
+  <mi mathvariant="monospace">f</mi>
+  <mstyle>
+  <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mo mathvariant="monospace">=</mo>
+  <mstyle>
+  <mspace width="0.167em"></mspace>
+  </mstyle>
+  <mi mathvariant="normal">&#x2216;</mi>
+  <mi mathvariant="monospace">x</mi>
+  <mo stretchy="false">&#x2192;</mo>
+  <mi mathvariant="monospace">x</mi>
+  <mo mathvariant="monospace">+</mo>
+  <mn mathvariant="monospace">1</mn>
+  </mrow>
+  </math>
+* The left hand side gives the name of the function;
 
-The left hand side gives the name of the function;
+* The right hand side (the “body”) is an expression giving the formal parameters, and the value of the application. The expression may use the parameters.
+An application is an expression like `f 31`, where
+`31` is the argument.
+* The application is evaluated by replacing it with the body of the function, where the formal parameters are replaced by the arguments.
 
-The right hand side (the “body”) is an expression giving the formal parameters, and the value of the application. The expression may use the parameters.
-An application is an expression like f 31, where
-
-    is the argument.
-    The application is evaluated by replacing it with the body of the function, where the formal parameters are replaced by the arguments.
-
-Example of application
+###Example of application
 
 ```haskell
 f  = \x - > x+1
@@ -145,8 +174,8 @@ To use it,
 #Lists
 A key datastructure: the list
 
-    A list is a single value that contains several other values.
-    Syntax: the elements are written in square parentheses, separated by commas.
+* A list is a single value that contains several other values.
+* Syntax: the elements are written in square parentheses, separated by commas.
 
 ```haskell
 ['3', 'a']
@@ -154,18 +183,18 @@ A key datastructure: the list
 ```
 Function returning several results
 
-    Actually, a function can return only one result.
-    However, lists allow you to package up several values into one object, which can be returned by a function.
-    Here is a function (minmax) that returns both the smaller and the larger of two numbers:
+* Actually, a function can return only one result.
+* However, lists allow you to package up several values into one object, which can be returned by a function.
+* Here is a function (minmax) that returns both the smaller and the larger of two numbers:
 
 ```haskell
 minmax = \x y -> [min x y, max x y]
 minmax 3 8  -- > [3,8]
 minmax 8 3  -- > [3,8]
 ```
-The elements are evaluated lazily
+* The elements are evaluated lazily
 
-You can write a constant list
+* You can write a constant list
 
 ```haskell
 mylist = [2,4,6,8]
@@ -180,45 +209,67 @@ Then
 yourlist -- > [7, 43, 56]
 ```
 But as long as you do not access the expression, it is not evaluated.
-Constructing lists
-Append: the
-operator
+##Constructing lists
+###Append: the (++) operator
 
-    The 
-
-    operator takes two existing lists, and gives you a new one containing all the elements.
-    The operator is pronounced append, and written as two consecutive + characters.
+* The (++) operator takes two existing lists, and gives you a new one containing all the elements.
+* The operator is pronounced append, and written as two consecutive + characters.
 ```haskell
 [23, 29] ++ [48, 41, 44] -- > [23, 29, 48, 41, 44]
 ```
-A couple of useful properties:
+###A couple of useful properties:
 
-    The length of the result is always the sum of the lengths of the original lists.
-    If 
-
+* The length of the result is always the sum of the lengths of the original lists.   
+* If <math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>x</mi>
+  <mi>s</mi>
+  </math>
 is a list, then
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mo stretchy="false">[</mo>
+  <mo stretchy="false">]</mo>
+  <mo>+</mo>
+  <mo>+</mo>
+  <mi>x</mi>
+  <mi>s</mi>
+  <mo>=</mo>
+  <mi>x</mi>
+  <mi>s</mi>
+  <mo>=</mo>
+  <mi>x</mi>
+  <mi>s</mi>
+  <mo>+</mo>
+  <mo>+</mo>
+  <mo stretchy="false">[</mo>
+  <mo stretchy="false">]</mo>
+</math>
 
-    .
+###Sequences
 
-Sequences
-
-    Sometimes it’s useful to have a sequence of numbers.
-    In standard mathematical notation, you can write 
-
-    .
-    Haskell has a sequence notation for lists.
-    Write the sequence in square brackets, with start value, the operator .., and end value.
+* Sometimes it’s useful to have a sequence of numbers.
+* In standard mathematical notation, you can write
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mn>0</mn>
+  <mo>,</mo>
+  <mn>1</mn>
+  <mo>,</mo>
+  <mo>&#x2026;</mo>
+  <mo>,</mo>
+  <mi>n</mi>
+  </math>
+* Haskell has a sequence notation for lists.
+* Write the sequence in square brackets, with start value, the operator .., and end value.
 ```haskell
     [0 .. 5] -- > [0,1,2,3,4,5]
     [100 .. 103] -- > [100,101,102,103]
 ```    
-    The elements are incremented by 1
+* The elements are incremented by 1
 
 Sequences aren’t limited to numbers
 
-    There are many enumerable types where there is a natural way to increment a value.
-    You can use sequences on any such type.
-    Characters are enumerable: there is a successor to each character.
+* There are many enumerable types where there is a natural way to increment a value.
+* You can use sequences on any such type.
+* Characters are enumerable: there is a successor to each character.
 
 For example:
 ```haskell
@@ -240,25 +291,123 @@ is a list of characters (which happen to be the digit characters);
 [0,1,2,3,4,5,6,7,8,9]
 ```
 is a list of numbers.
-List comprehensions
+###List comprehensions
 
-    A list comprehension is a high level notation for specifying the computation of a list
-    The compiler automatically transforms a list comprehensions into an expression using a family of basic functions that operate on lists
+* A list comprehension is a high level notation for specifying the computation of a list
+* The compiler automatically transforms a list comprehensions into an expression using a family of basic functions that operate on lists
 
-    List comprehensions were inspired by the mathematical notation set comprehension.
-    Examples of set comprehensions:
-        A set obtained by multiplying the elements of another set by 3 is 
+* List comprehensions were inspired by the mathematical notation set comprehension.
 
-.
-The set of even numbers is
-.
-The set of odd numbers is
-.
-The cross product of two sets A and B is
+####Examples of set comprehensions:
+* A set obtained by multiplying the elements of another set by 3 is 
 
-        .
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mo fence="false" stretchy="false">{</mo>
+  <mn>3</mn>
+  <mo>&#xD7;</mo>
+  <mi>x</mi>
+  <mstyle>
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">|</mo>
+  </mrow>
+  <mstyle>
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mi>x</mi>
+  <mo stretchy="false">&#x2190;</mo>
+  <mo fence="false" stretchy="false">{</mo>
+  <mn>1</mn>
+  <mo>,</mo>
+  <mo>&#x2026;</mo>
+  <mo>,</mo>
+  <mn>10</mn>
+  <mo fence="false" stretchy="false">}</mo>
+  <mo fence="false" stretchy="false">}</mo>
+</math>
 
-Examples of list comprehensions
+* The set of even numbers is
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mo fence="false" stretchy="false">{</mo>
+<mn>3</mn>
+<mo>&#xD7;</mo>
+<mi>x</mi>
+<mstyle>
+<mspace width="0.278em"></mspace>
+</mstyle>
+<mrow data-mjx-texclass="ORD">
+<mo stretchy="false">|</mo>
+</mrow>
+<mstyle>
+<mspace width="0.278em"></mspace>
+</mstyle>
+<mi>x</mi>
+<mo stretchy="false">&#x2190;</mo>
+<mo fence="false" stretchy="false">{</mo>
+<mn>1</mn>
+<mo>,</mo>
+<mo>&#x2026;</mo>
+<mo>,</mo>
+<mn>10</mn>
+<mo fence="false" stretchy="false">}</mo>
+<mo fence="false" stretchy="false">}</mo>
+</math>
+
+* The set of odd numbers is
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mo fence="false" stretchy="false">{</mo>
+  <mn>2</mn>
+  <mo>&#xD7;</mo>
+  <mi>x</mi>
+  <mo>+</mo>
+  <mn>1</mn>
+  <mstyle>
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">|</mo>
+  </mrow>
+  <mstyle>
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mi>x</mi>
+  <mo stretchy="false">&#x2190;</mo>
+  <mi>N</mi>
+  <mo fence="false" stretchy="false">}</mo>
+</math>
+
+* The cross product of two sets A and B is
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mo fence="false" stretchy="false">{</mo>
+  <mo stretchy="false">(</mo>
+  <mi>a</mi>
+  <mo>,</mo>
+  <mi>b</mi>
+  <mo stretchy="false">)</mo>
+  <mstyle>
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mrow data-mjx-texclass="ORD">
+    <mo stretchy="false">|</mo>
+  </mrow>
+  <mstyle>
+    <mspace width="0.278em"></mspace>
+  </mstyle>
+  <mi>a</mi>
+  <mo stretchy="false">&#x2190;</mo>
+  <mi>A</mi>
+  <mo>,</mo>
+  <mi>b</mi>
+  <mo stretchy="false">&#x2190;</mo>
+  <mi>B</mi>
+  <mo fence="false" stretchy="false">}</mo>
+</math>
+
+####Examples of list comprehensions
 
 ```haskell
 [3*x | x <- [1..10]]
@@ -277,39 +426,60 @@ Examples of list comprehensions
 -- >
 [[10,20],[10,21],[11,20],[11,21],[12,20],[12,21]]
 ```
-Operating on lists
-Indexing a list
+##Operating on lists
+###Indexing a list
 
-    We can index a list by numbering the elements, starting with 0.
-    Thus a canonical form of a list with 
+We can index a list by numbering the elements, starting with 0.
+    Thus a canonical form of a list with elements is
 
-elements is
-.
-The
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mo stretchy="false">[</mo>
+<msub>
+<mi>x</mi>
+<mn>0</mn>
+</msub>
+<mo>,</mo>
+<msub>
+<mi>x</mi>
+<mn>1</mn>
+</msub>
+<mo>,</mo>
+<mo>.</mo>
+<mo>.</mo>
+<msub>
+<mi>x</mi>
+<mrow data-mjx-texclass="ORD">
+<mi>n</mi>
+<mo>&#x2212;</mo>
+<mn>1</mn>
+</mrow>
+</msub>
+<mo stretchy="false">]</mo>
+</math>
 
-    operator takes a list and an index, and returns the corresponding element.
+The operator takes a list and an index, and returns the corresponding element.
 ```haskell
 [5,3,8,7]  !! 2    -- > 8
 [0 .. 100]  !! 81  -- > 81
 ['a'..'z'] !! 13  -- > 'n'
 ```
-    If the index is negative, or too large, undefined is returned.
-    For robust programming, we need to ensure either that all expressions are well defined, or else that all exceptions are caught and handled.
-    Later, we’ll look at how to follow both of those approaches.
+* If the index is negative, or too large, undefined is returned.
+* For robust programming, we need to ensure either that all expressions are well defined, or else that all exceptions are caught and handled.
+* Later, we’ll look at how to follow both of those approaches.
 
-head and tail
+###Head and Tail
 
-    There are standard library functions to give the head of a list (its first element) or the tail (all the rest of the list)
-    The result of applying head or tail to the empty list is undefined.
+* There are standard library functions to give the head of a list (its first element) or the tail (all the rest of the list)
+* The result of applying head or tail to the empty list is undefined.
 ```haskell
 head :: [a] -> a
 head [4,5,6] -- > 4
 tail :: [a] -> [a]
 tail [4,5,6] -- > [5,6]
 ```
-    Recommendation: avoid using (head) and (tail), because you want to avoid undefined values so your programs are robust. Unless you’re doing something really sophisticated, you’re better off with pattern matching. There are, however, some cases where they are appropriate.
+* Recommendation: avoid using (head) and (tail), because you want to avoid undefined values so your programs are robust. Unless you’re doing something really sophisticated, you’re better off with pattern matching. There are, however, some cases where they are appropriate.
 
-Lists are lazy
+###Lists are lazy
 
 We have mentioned before that Haskell is “lazy”, meaning that it only evaluates expressions when they are required for the evaluation of another expression.This behaviour extends to lists, so we can actually define infinite lists using sequences, for example [1 .. ] is the list of all positive integers. Another example is the primes function (from the Data.Numbers.Primes package) which returns an infinite list of prime numbers. A consequence of laziness in lists is that you can define lists containing very complex and time consuming expressions, and as long as you never access them they will not be evaluated. The same is true for an incorrect expression, for example defining xs = [1,2,xs !! 5,4] will not result in an error as long as you don’t access the third element.
 
@@ -328,3 +498,10 @@ xs !! 2 -- > 2
 
 <span style="color:green">This is a consequence of Haskell’s expression evaluation through reduction: the order of the expressions does not matter.</span>
 
+###Summary:
+
+Haskell programs compute by reduction, i.e. gradually replacing expressions by their values.
+
+A function takes one or more arguments and computes a result. Given the same arguments, the result will always be the same. In Haskell there are no side-effects.
+
+The list is a key data structure. It is quite similar to lists in other languages. However note that Haskell lists are immutable.
